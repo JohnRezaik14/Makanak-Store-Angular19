@@ -1,6 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import "tailwindcss";
+/* Tailwind utilities & base */
+@import "tailwindcss-primeui";
+/* PrimeUI semantic tokens as Tailwind classes */
 @import "primeicons/primeicons.css";
+/* PrimeIcons */
+/* @import "primeng/resources/primeng.min.css"; */
+/* PrimeNG core CSS */
+/* @import "primeng/resources/themes/lara-light-blue/theme.css"; */
+/* PrimeNG theme */
 body {
   padding: 0%;
   margin: 0%;

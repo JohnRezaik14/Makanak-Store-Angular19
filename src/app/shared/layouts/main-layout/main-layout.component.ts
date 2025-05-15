@@ -3,6 +3,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { AddToCartComponent } from '../../ui/buttons/add-to-cart/add-to-cart.component';
 export type Product = {
   id: number;
   title: string;
@@ -19,7 +20,13 @@ export type Product = {
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.css'],
-  imports: [HeaderComponent, FooterComponent, CommonModule, ButtonModule],
+  imports: [
+    HeaderComponent,
+    FooterComponent,
+    CommonModule,
+    ButtonModule,
+    AddToCartComponent,
+  ],
 })
 export class MainLayoutComponent implements OnInit, OnChanges {
   products: Product[] = [];
