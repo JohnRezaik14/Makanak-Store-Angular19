@@ -39,9 +39,9 @@ export class MainLayoutComponent implements OnInit, OnChanges {
   async ngOnInit() {
     const result = await this.fetchData();
     this.products = result;
-    console.log(result);
+    // console.log(result);
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.products);
+    // console.log(this.products);
   }
 }
