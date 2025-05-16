@@ -9,7 +9,6 @@ import { MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { HttpEvent } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
 interface UploadEvent {
   originalEvent: HttpEvent<any>;
   files: File[];
@@ -27,7 +26,6 @@ interface UploadEvent {
     CommonModule,
     FileUpload,
     ToastModule,
-    HttpClientModule,
   ],
   providers: [MessageService],
 })

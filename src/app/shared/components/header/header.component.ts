@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 // import { UserMenuComponent } from '../user-menu/user-menu.component';
 import { LoginModalComponent } from '../../ui/modals/login-modal/login-modal.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  imports: [LoginModalComponent],
+  imports: [LoginModalComponent, RouterLink],
 })
 export class HeaderComponent implements OnInit {
   constructor() {}

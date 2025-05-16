@@ -3,19 +3,9 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
-import { AddToCartComponent } from '../../ui/buttons/add-to-cart/add-to-cart.component';
-export type Product = {
-  id: number;
-  title: string;
-  image: string;
-  brand: string;
-  category: string;
-  color: string;
-  discription: string;
-  discount: string;
-  model: string;
-  price: number;
-};
+import { ProductCardComponent } from '../../../features/products/components/product-card/product-card.component';
+import { ProductsSectionComponent } from '../../../features/products/components/products-section/products-section.component';
+
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
@@ -25,22 +15,13 @@ export type Product = {
     FooterComponent,
     CommonModule,
     ButtonModule,
-    AddToCartComponent,
+    ProductsSectionComponent,
   ],
 })
 export class MainLayoutComponent implements OnInit, OnChanges {
-  products: Product[] = [];
   constructor() {}
-  fetchData = async () => {
-    const response = await fetch('https://fakestoreapi.in/api/products');
-    const data = await response.json();
-    return data.products;
-  };
-  async ngOnInit() {
-    const result = await this.fetchData();
-    this.products = result;
-    // console.log(result);
-  }
+
+  ngOnInit() {}
   ngOnChanges(changes: SimpleChanges): void {
     // console.log(this.products);
   }

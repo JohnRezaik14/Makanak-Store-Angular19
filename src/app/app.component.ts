@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
-// import { RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterOutlet } from '@angular/router';
+import { HomeComponent } from './features/home/pages/home/home.component';
+import { AboutComponent } from './features/about/pages/about/about.component';
 
 @Component({
   selector: 'app-root',
-  imports: [MainLayoutComponent],
+  imports: [HttpClientModule, RouterOutlet, HomeComponent, AboutComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

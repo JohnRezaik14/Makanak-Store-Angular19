@@ -1,0 +1,5 @@
+<section class="flex flex-row flex-wrap justify-center p-2 gap-3">
+  @for (product of products ; track product.id ) { @if (product.image) {
+  <app-product-card [product]="product"></app-product-card>
+  } }
+</section>
