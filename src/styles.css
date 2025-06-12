@@ -10,6 +10,9 @@
 /* PrimeNG core CSS */
 /* @import "primeng/resources/themes/lara-light-blue/theme.css"; */
 /* PrimeNG theme */
+html {
+  scroll-behavior: smooth;
+}
 body {
   padding: 0%;
   margin: 0%;
@@ -17,4 +20,29 @@ body {
   width: 100%;
   /* overflow-x: hidden; */
   /* min-height: 100vh; */
+}
+/* styles.css or component CSS */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 5px;
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-track {
+  background: #030712;
+  /* border-radius: 10px; */
+}
+
+::-webkit-scrollbar-thumb {
+  cursor: grab;
+  background: #10b981;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #059669;
 }

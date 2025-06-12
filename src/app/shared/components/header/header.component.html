@@ -1,20 +1,25 @@
 <nav
-  class="h-[3.8rem] bg-gray-950 flex flex-row justify-between items-center p-3"
+  class="h-[3.8rem] bg-gray-950 flex flex-row justify-between items-center p-6"
 >
   <div class="flex flex-row items-center">
     <ul
       class="flex flex-row items-center gap-5 **:duration-200 **:cursor-pointer **:hover:text-primary"
     >
       <li>
-        <a routerLink="/" class="flex items-center gap-0">
-          <img class="brand-logo w-14 h-14" src="brand.svg" alt="logo" />
-          <h1 class="brand font-bold text-3xl">akanak</h1>
+        <a routerLink="/" class="">
+          <h1
+            class="brand font-bold flex flex-row items-center justify-center gap-0 p-0 2xs:text-lg lg:text-xl xl:text-2xl"
+          >
+            <img
+              class="brand-logo w-14 h-14"
+              src="brand.svg"
+              alt="logo"
+            />akanak
+          </h1>
         </a>
       </li>
       <li class="">
-        <a routerLink="/about" class="text-white font-bold text-2xl"
-          >About Us</a
-        >
+        <a routerLink="/about" class="text-white font-bold text-xl">About Us</a>
       </li>
     </ul>
   </div>
@@ -32,8 +37,15 @@
       <i class="pi pi-user">Login</i>
     </button> -->
     <app-login-modal></app-login-modal>
-    <i
-      class="pi pi-shopping-cart text-white text-4xl transition-colors duration-300 cursor-pointer hover:text-amber-400"
-    ></i>
+    <a routerLink="/cart"
+      ><i
+        class="pi pi-shopping-cart text-white transition-colors duration-300 cursor-pointer hover:text-amber-300 relative"
+        style="font-size: 1.5rem"
+        ><span
+          class="absolute top-[-0.5em] right-[-0.5em] text-[0.8em] p-1 bg-primary-700 rounded-[50%] font-mono"
+          >{{ this.totalCount() }}</span
+        ></i
+      ></a
+    >
   </div>
 </nav>

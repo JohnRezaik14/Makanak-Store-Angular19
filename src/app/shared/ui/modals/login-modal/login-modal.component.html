@@ -1,48 +1,77 @@
-<p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
+<p-button
+  *ngIf="!authService.isLoggedIn()"
+  (click)="showDialog()"
+  icon="pi pi-user"
+  label="Login"
+/>
+
 <p-dialog
   maskStyleClass="backdrop-blur-sm"
   [(visible)]="visible"
   styleClass="!border-0 !bg-transparent"
 >
   <ng-template #headless>
-    <div
-      class="flex flex-col px-8 py-8 gap-4 rounded-2xl"
+    <form
+      [formGroup]="isSignUpMode ? registerForm : loginForm"
+      class="flex flex-col w-sm px-6 py-6 gap-2 rounded-2xl"
       style="
         border-radius: 12px;
+        color: #f0f0f0;
         background-image: radial-gradient(
           circle at left top,
-          var(--p-primary-400),
-          var(--p-primary-700)
+          var(--p-teal-600),
+          var(--p-teal-800)
         );
       "
     >
-      <h2 class="text-center text-2xl font-bold mb-0">
+      <h2 class="text-center text-gray-800 text-2xl font-bold mb-0">
         {{ isSignUpMode ? "Sign Up" : "Sign In" }}
       </h2>
-      <!-- Toggle between modes -->
+
+      <!-- Mode Toggle -->
       <div class="text-md text-center mt-2">
         @if (isSignUpMode) {
-        <span>
-          Already have an account?
-          <a (click)="toggleMode()" class="underline cursor-pointer">Sign in</a>
+        <span
+          >Already have an account?
+          <a
+            (click)="toggleMode()"
+            class="underline cursor-pointer font-[600] hover:text-gray-700 duration-200 transition-colors text-gray-800"
+          >
+            Sign in
+          </a>
         </span>
-        }@else {
-        <span>
-          Don’t have an account?
-          <a (click)="toggleMode()" class="underline cursor-pointer">Sign up</a>
+        } @else {
+        <span
+          >Don't have an account?
+          <a
+            (click)="toggleMode()"
+            class="underline cursor-pointer font-[600] hover:text-gray-700 duration-200 transition-colors text-gray-800"
+          >
+            Sign up
+          </a>
         </span>
         }
       </div>
+
+      <!-- Email -->
       <div class="inline-flex flex-col gap-2">
         <label for="email" class="text-primary-50 font-semibold">Email</label>
         <input
           pInputText
           id="email"
+          formControlName="email"
           class="!bg-white/20 !border-0 !p-3 !text-primary-50 w-80"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              (isSignUpMode ? registerForm : loginForm).get('email')?.invalid &&
+              (isSignUpMode ? registerForm : loginForm).get('email')?.touched
+          }"
         />
       </div>
-      <!-- SignUp inputs -->
+
+      <!-- SignUp Fields -->
       @if (isSignUpMode) {
+      <!-- Username -->
       <div class="inline-flex flex-col gap-2">
         <label for="username" class="text-primary-50 font-semibold"
           >Username</label
@@ -50,40 +79,42 @@
         <input
           pInputText
           id="username"
+          formControlName="username"
           class="!bg-white/20 !border-0 !p-3 !text-primary-50 w-80"
-          type="text"
         />
       </div>
 
+      <!-- Gender -->
       <div class="inline-flex flex-col gap-2">
         <div class="card flex justify-center text-primary-50 font-semibold">
           <p-select
+            formControlName="gender"
             [options]="genders"
-            [(ngModel)]="selectedGender"
             optionLabel="name"
             placeholder="Select a Gender"
             class="w-full md:w-56"
           />
         </div>
       </div>
+
+      <!-- Image Upload -->
       <div class="inline-flex flex-col gap-2">
         <div class="card flex flex-col items-center justify-center">
-          <p-toast />
           <p-fileupload
             #fu
             mode="basic"
+            class="text-gray-800"
             chooseLabel="Profile Picture"
             chooseIcon="pi pi-upload"
-            name="demo[]"
-            url="https://www.primefaces.org/cdn/api/upload.php"
             accept="image/*"
             maxFileSize="1000000"
             (onUpload)="onUpload($event)"
           />
         </div>
       </div>
-
       }
+
+      <!-- Password -->
       <div class="inline-flex flex-col gap-2">
         <label for="password" class="text-primary-50 font-semibold"
           >Password</label
@@ -91,27 +122,32 @@
         <input
           pInputText
           id="password"
-          class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80"
           type="password"
+          formControlName="password"
+          class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80"
         />
       </div>
+
+      <!-- Actions -->
       <div class="flex items-center gap-4">
         <p-button
           label="Cancel"
           (click)="closeDialog()"
           [text]="true"
-          styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10"
-          class="w-full"
+          styleClass="!p-4 w-full !text-primary-50 hover:!bg-white/10"
+          class="w-full bg-gray-500 rounded-lg"
         />
         <p-button
           [label]="isSignUpMode ? 'Sign-Up' : 'Sign-In'"
-          (click)="closeDialog()"
+          (click)="isSignUpMode ? onRegister() : onLogin()"
+          [disabled]="(isSignUpMode ? registerForm : loginForm).invalid"
           [text]="true"
-          styleClass="!p-4 w-full
-        !text-primary-50 !border !border-white/30 hover:!bg-white/10"
-          class="w-full"
+          styleClass="!p-4 w-full !text-primary-50 hover:!bg-white/10"
+          class="w-full bg-gray-900 rounded-lg"
         />
       </div>
-    </div>
+    </form>
   </ng-template>
 </p-dialog>
+
+<p-toast></p-toast>

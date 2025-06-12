@@ -3,13 +3,15 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+  styleUrls: ['./footer.component.css'],
 })
 export class FooterComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit() {}
+  scrollToTop() {
+    console.log('going to top');
 
-  ngOnInit() {
+    window.scrollTo({ top: 0, behavior: 'auto' });
   }
-
 }

@@ -1,0 +1,65 @@
+<div class="container mx-auto px-4 py-8">
+  @if (loading) {
+  <div class="flex justify-center items-center min-h-[60vh]">
+    <p-progressSpinner />
+  </div>
+  } @else if (error) {
+  <div class="text-center text-red-500">
+    {{ error }}
+  </div>
+  } @else if (product) {
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Product Image -->
+    <div class="flex justify-center items-start">
+      <p-image
+        [src]="product.image"
+        [alt]="product.title"
+        [preview]="true"
+        imageClass="max-w-full h-auto rounded-lg shadow-lg"
+      />
+    </div>
+
+    <!-- Product Details -->
+    <div class="flex flex-col gap-4">
+      <h1 class="text-3xl font-bold text-gray-900">{{ product.title }}</h1>
+      <p class="text-gray-600">{{ product.description }}</p>
+
+      <div class="flex items-center gap-2">
+        <span class="text-2xl font-bold text-gray-900"
+          >${{ product.price }}</span
+        >
+      </div>
+
+      <!-- Add to Cart Button -->
+      @if (!isInCart(product.id!)) {
+      <p-button
+        label="Add to Cart"
+        icon="pi pi-shopping-cart"
+        (onClick)="addToCart(product)"
+        styleClass="w-full md:w-auto"
+      />
+      } @else {
+      <div class="flex items-center gap-2 bg-gray-100 rounded-lg p-2 w-fit">
+        <p-button
+          icon="pi pi-minus"
+          (onClick)="decrement(product.id!)"
+          [text]="true"
+          [rounded]="true"
+        />
+
+        <span class="text-xl font-medium w-12 text-center">
+          {{ getItemCount(product.id!) }}
+        </span>
+
+        <p-button
+          icon="pi pi-plus"
+          (onClick)="increment(product.id!)"
+          [text]="true"
+          [rounded]="true"
+        />
+      </div>
+      }
+    </div>
+  </div>
+  }
+</div>

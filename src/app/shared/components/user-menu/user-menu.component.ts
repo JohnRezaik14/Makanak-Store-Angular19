@@ -10,6 +10,7 @@ import { MegaMenu } from 'primeng/megamenu';
 })
 export class UserMenuComponent implements OnInit {
   items: MegaMenuItem[] | undefined;
+
   constructor() {}
 
   ngOnInit() {

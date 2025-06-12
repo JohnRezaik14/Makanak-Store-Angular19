@@ -1,0 +1,31 @@
+<section class="p-8">
+  <!-- products in  Cart -->
+  <div class="flex">
+    <h2 class="text-gray-100 text-2xl p-2">Cart</h2>
+  </div>
+  <!-- Order summary -->
+  <div
+    class="flex flex-col w-10/12 gap-4 p-4 rounded-2xl bg-gray-950 shadow-md shadow-teal-600"
+  >
+    @if (itemsCount()>0) {@for (item of cartItems(); track item){
+    <app-CartItem [product]="item"></app-CartItem>
+    <!-- @if
+    (this.cartService.checkIfInCart(item.id!)) {
+
+    }  -->
+    } }@else {
+    <div class="text-gray-100 flex flex-col gap-4">
+      <p>There is no product added to the cart</p>
+      <p>
+        Want to add??
+        <a
+          routerLink="/"
+          class="underline text-teal-500 duration-200 cursor-pointer hover:text-teal-300"
+          >See new Products</a
+        >
+      </p>
+    </div>
+
+    }
+  </div>
+</section>

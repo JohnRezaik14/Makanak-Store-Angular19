@@ -1,6 +1,38 @@
-<div
-  class="text-[0.7em] bg-amber-300 rounded-lg transition-all duration-200 cursor-pointer hover:bg-amber-400 p-1.5 w-fit flex flex-row gap-0.5 align-middle justify-center"
->
-  <i class="pi pi-cart-arrow-down"></i>
-  <input type="button" value="Add to cart" class="cursor-pointer" />
+<div class="flex items-center justify-center">
+  @if (!cartService.checkIfInCart(product.id!)) {
+  <button
+    (click)="addToCart()"
+    class="text-[0.7em] bg-amber-300 rounded-lg transition-all duration-200 cursor-pointer hover:bg-amber-400 p-1.5 w-fit flex flex-row gap-0.5 items-center justify-center"
+  >
+    <i class="pi pi-cart-plus"></i>
+    <span>Add to cart</span>
+  </button>
+  } @else {
+  <div class="flex items-center gap-2 bg-amber-300 rounded-lg p-1.5">
+    <button
+      (click)="decrementCount()"
+      class="text-[0.7em] hover:bg-amber-400 p-1 rounded"
+    >
+      <i class="pi pi-minus"></i>
+    </button>
+
+    <span class="text-[0.7em] font-medium">
+      {{ cartService.getItemCount(product.id!) }}
+    </span>
+
+    <button
+      (click)="incrementCount()"
+      class="text-[0.7em] hover:bg-amber-400 p-1 rounded"
+    >
+      <i class="pi pi-plus"></i>
+    </button>
+
+    <button
+      (click)="removeFromCart()"
+      class="text-[0.7em] hover:bg-red-400 p-1 rounded ml-1"
+    >
+      <i class="pi pi-trash"></i>
+    </button>
+  </div>
+  }
 </div>

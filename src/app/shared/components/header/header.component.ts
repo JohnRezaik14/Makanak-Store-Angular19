@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 // import { UserMenuComponent } from '../user-menu/user-menu.component';
 import { LoginModalComponent } from '../../ui/modals/login-modal/login-modal.component';
 import { RouterLink } from '@angular/router';
+import { CartProductsService } from '../../../core/services/cart/cartProducts.service';
 
 @Component({
   selector: 'app-header',
@@ -9,8 +10,7 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./header.component.css'],
   imports: [LoginModalComponent, RouterLink],
 })
-export class HeaderComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
+export class HeaderComponent {
+  private cartService = inject(CartProductsService);
+  totalCount = this.cartService.totalCount;
 }

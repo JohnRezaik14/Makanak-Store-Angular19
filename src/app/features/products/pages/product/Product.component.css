@@ -1,0 +1,9 @@
+:host ::ng-deep {
+  .p-image-preview-container {
+    @apply rounded-lg overflow-hidden;
+  }
+  
+  .p-image img {
+    @apply object-cover;
+  }
+}
