@@ -4,6 +4,7 @@ import { authGuard } from './core/guards/auth.guard';
 export const routes: Routes = [
   {
     path: '',
+    title: 'Makanak',
     loadComponent: () =>
       import('./features/home/pages/home/home.component').then(
         (m) => m.HomeComponent
@@ -45,7 +46,6 @@ export const routes: Routes = [
       import('./features/cart/pages/cart/cart/cart.component').then(
         (m) => m.CartComponent
       ),
-    canActivate: [authGuard],
   },
   {
     path: 'profile',
