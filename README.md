@@ -46,7 +46,7 @@ Watch a video demonstration of Makanak E-commerce Platform:
 
 ## Technical Features
 
-- Angular 16+ with Standalone Components
+- Angular 19 Components
 - PrimeNG UI Components
 - Tailwind CSS for styling
 - Signal-based State Management
