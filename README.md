@@ -71,7 +71,7 @@ Watch a video demonstration of Makanak E-commerce Platform:
 3. Start the development server:
 
    ```bash
-   ng serve
+   npm start
    ```
 
 4. Start the mock backend:
