@@ -7,7 +7,7 @@ import { Product } from '../../models/Product';
 export class ProductsService {
   private readonly CACHE_KEY = 'products_cache';
   private readonly CACHE_EXPIRY = 1000 * 60 * 60; // 1 hour
-  private readonly API_URL = 'https://fakestoreapi.in/api';
+  private readonly API_URL = 'http://localhost:3000';
 
   async getProducts(): Promise<Product[]> {
     const cached = this.getFromCache();
@@ -23,7 +23,7 @@ export class ProductsService {
   private async fetchProducts(): Promise<Product[]> {
     const response = await fetch(`${this.API_URL}/products`);
     const data = await response.json();
-    return data.products;
+    return data;
   }
 
   private getFromCache(): Product[] | null {

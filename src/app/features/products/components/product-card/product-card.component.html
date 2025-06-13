@@ -1,9 +1,11 @@
 <div
-  [routerLink]="['/products', product.id]"
-  class="h-full flex flex-col  rounded-[5px] border-[1px] border-gray-200 shadow-md shadow-gray-500 duration-500 transition-colors hover:shadow-2xl {{addedToCart ? `bg-teal-200` : `bg-gray-100`}} "
+  class="h-full flex flex-col rounded-[5px] border-[1px] border-gray-200 shadow-md shadow-gray-500 duration-500 transition-colors hover:shadow-2xl {{addedToCart ? `bg-teal-200` : `bg-gray-100`}} "
 >
   <!-- image and on it discount -->
-  <div class="flex flex-col justify-center align-middle relative bg-white">
+  <div
+    class="flex flex-col justify-center align-middle relative bg-white cursor-pointer"
+    [routerLink]="['/products', product.id]"
+  >
     @if (product.discount) {
     <span
       class="ml-2 mt-2 text-[0.6em] p-1 text-white font-[500] bg-red-400 w-fit rounded-lg"
@@ -15,13 +17,12 @@
   </div>
   <!-- information about product -->
   <div class="flex flex-col gap-1 p-2">
-    <p
-      class="text-[0.6em] text-gray-800 font-[500] hover:text-gray-500 cursor-pointer transition-colors duration-200"
-    >
+    <p class="text-[0.6em] text-gray-800 font-[500]">
       {{ product.brand }}
     </p>
     <p
       class="text-[0.7em] font-[500] font-sans hover:text-gray-600 cursor-pointer transition-colors duration-200"
+      [routerLink]="['/products', product.id]"
     >
       {{
         product.title && product.title.length > 150
@@ -47,4 +48,3 @@
     <app-add-to-cart [product]="this.product"></app-add-to-cart>
   </div>
 </div>
-

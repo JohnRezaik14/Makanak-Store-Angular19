@@ -52,7 +52,7 @@
         </span>
         }
       </div>
-
+      <!-- SignUp Fields -->
       <!-- Email -->
       <div class="inline-flex flex-col gap-2">
         <label for="email" class="text-primary-50 font-semibold">Email</label>
@@ -68,8 +68,20 @@
           }"
         />
       </div>
+      <!-- Password -->
+      <div class="inline-flex flex-col gap-2">
+        <label for="password" class="text-primary-50 font-semibold"
+          >Password</label
+        >
+        <input
+          pInputText
+          id="password"
+          type="password"
+          formControlName="password"
+          class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80"
+        />
+      </div>
 
-      <!-- SignUp Fields -->
       @if (isSignUpMode) {
       <!-- Username -->
       <div class="inline-flex flex-col gap-2">
@@ -90,43 +102,13 @@
           <p-select
             formControlName="gender"
             [options]="genders"
-            optionLabel="name"
             placeholder="Select a Gender"
             class="w-full md:w-56"
           />
         </div>
       </div>
 
-      <!-- Image Upload -->
-      <div class="inline-flex flex-col gap-2">
-        <div class="card flex flex-col items-center justify-center">
-          <p-fileupload
-            #fu
-            mode="basic"
-            class="text-gray-800"
-            chooseLabel="Profile Picture"
-            chooseIcon="pi pi-upload"
-            accept="image/*"
-            maxFileSize="1000000"
-            (onUpload)="onUpload($event)"
-          />
-        </div>
-      </div>
       }
-
-      <!-- Password -->
-      <div class="inline-flex flex-col gap-2">
-        <label for="password" class="text-primary-50 font-semibold"
-          >Password</label
-        >
-        <input
-          pInputText
-          id="password"
-          type="password"
-          formControlName="password"
-          class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80"
-        />
-      </div>
 
       <!-- Actions -->
       <div class="flex items-center gap-4">

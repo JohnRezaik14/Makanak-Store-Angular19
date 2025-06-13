@@ -1,7 +1,18 @@
-export interface User {
+export interface RegisterData {
   email: string;
   username: string;
   password: string;
-  image?: string;
-  gender: 'male' | 'female';
+  gender: string;
+}
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface User {
+  id: string;
+  email: string;
+  username: string;
+  gender: string;
 }

@@ -1,11 +1,16 @@
 import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CartProductsService } from '../../../../../core/services/cart/cartProducts.service';
 import { Product } from '../../../../../core/models/Product';
-
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { ImageModule } from 'primeng/image';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 @Component({
   selector: 'app-CartItem',
   templateUrl: './CartItem.component.html',
   styleUrls: ['./CartItem.component.css'],
+  imports: [CommonModule, ButtonModule, ImageModule, ProgressSpinnerModule],
 })
 export class CartItemComponent implements OnInit {
   @Input() product!: Product;

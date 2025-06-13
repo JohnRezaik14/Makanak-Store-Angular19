@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -17,7 +17,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
-import { FileUpload } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { HttpEvent } from '@angular/common/http';
 
@@ -37,7 +36,6 @@ interface UploadEvent {
     SelectModule,
     FormsModule,
     CommonModule,
-    FileUpload,
     ToastModule,
     ReactiveFormsModule,
   ],
@@ -48,8 +46,7 @@ export class LoginModalComponent implements OnInit {
   registerForm!: FormGroup;
   isSignUpMode = false;
   visible = false;
-  genders = [{ name: 'Male' }, { name: 'Female' }];
-  uploadedImage: File | null = null;
+  genders = ['Male', 'Female'];
 
   public authService = inject(AuthService);
   private fb = inject(FormBuilder);
@@ -66,10 +63,9 @@ export class LoginModalComponent implements OnInit {
 
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      username: ['', [Validators.required, Validators.minLength(3)]],
       gender: ['', Validators.required],
-      image: [null],
     });
   }
 
@@ -95,24 +91,50 @@ export class LoginModalComponent implements OnInit {
         next: () => {
           this.messageService.add({
             severity: 'success',
-            summary: 'Success',
-            detail: 'Logged in successfully',
+            summary: 'Welcome Back!',
+            detail: 'You have successfully logged in',
+            life: 3000,
           });
           this.closeDialog();
         },
-        error: (error: Error) => {
+        error: (error: any) => {
+          let message = 'Login failed';
+
+          if (error.status === 401) {
+            message = 'Invalid email or password';
+          } else if (error.status === 404) {
+            message = 'Account not found or password is not correct';
+          } else if (error.status === 400) {
+            message = 'Please check your credentials';
+          }
+
           this.messageService.add({
             severity: 'error',
-            summary: 'Error',
-            detail: error.message || 'Login failed',
+            summary: 'Login Error',
+            detail: message,
+            life: 5000,
           });
         },
       });
     } else {
+      const controls = this.loginForm.controls;
+      let errorMessage = '';
+
+      if (controls['email'].errors) {
+        errorMessage = controls['email'].errors['required']
+          ? 'Email is required'
+          : 'Please enter a valid email';
+      } else if (controls['password'].errors) {
+        errorMessage = controls['password'].errors['required']
+          ? 'Password is required'
+          : 'Password must be at least 6 characters';
+      }
+
       this.messageService.add({
         severity: 'warn',
-        summary: 'Validation',
-        detail: 'Please fill all required fields correctly',
+        summary: 'Validation Error',
+        detail: errorMessage || 'Please fill all required fields correctly',
+        life: 4000,
       });
     }
   }
@@ -123,13 +145,9 @@ export class LoginModalComponent implements OnInit {
       const registerData: RegisterData = this.registerForm.value;
 
       Object.keys(registerData).forEach((key) => {
-        if (key === 'image' && this.uploadedImage) {
-          formData.append(key, this.uploadedImage);
-        } else {
-          const value = registerData[key as keyof RegisterData];
-          if (value !== undefined) {
-            formData.append(key, value as string);
-          }
+        const value = registerData[key as keyof RegisterData];
+        if (value !== undefined) {
+          formData.append(key, value as string);
         }
       });
 
@@ -137,36 +155,48 @@ export class LoginModalComponent implements OnInit {
         next: () => {
           this.messageService.add({
             severity: 'success',
-            summary: 'Success',
-            detail: 'Registered successfully',
+            summary: 'Welcome!',
+            detail: 'Your account has been created successfully',
+            life: 3000,
           });
           this.closeDialog();
         },
-        error: (error: Error) => {
+        error: (error: any) => {
+          let message = 'Registration failed';
+
+          if (error.status === 400) {
+            message = 'Email already exists';
+          } else {
+            message = error.error?.message || 'Invalid registration data';
+          }
+
           this.messageService.add({
             severity: 'error',
-            summary: 'Error',
-            detail: error.message || 'Registration failed',
+            summary: 'Registration Error',
+            detail: message,
+            sticky: true,
           });
         },
       });
     } else {
+      const controls = this.registerForm.controls;
+      let errorMessage = '';
+
+      if (controls['email'].errors) {
+        errorMessage = 'Please enter a valid email address';
+      } else if (controls['username'].errors) {
+        errorMessage = 'Username must be at least 3 characters';
+      } else if (controls['password'].errors) {
+        errorMessage = 'Password must be at least 6 characters';
+      } else if (controls['gender'].errors) {
+        errorMessage = 'Please select your gender';
+      }
+
       this.messageService.add({
         severity: 'warn',
-        summary: 'Validation',
-        detail: 'Please fill all required fields correctly',
-      });
-    }
-  }
-
-  onUpload(event: UploadEvent) {
-    if (event.files?.length > 0) {
-      this.uploadedImage = event.files[0];
-      this.registerForm.patchValue({ image: this.uploadedImage });
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Success',
-        detail: 'Profile picture uploaded',
+        summary: 'Validation Error',
+        detail: errorMessage || 'Please fill all required fields correctly',
+        life: 4000,
       });
     }
   }

@@ -1,35 +1,36 @@
-<div class="bg-gray-300 flex gap-2 rounded-md">
+<div class="bg-gray-300 flex items-center gap-2 rounded-md">
   <img
     src="{{ product.image }}"
     alt="{{ product.title }}"
     class="w-40 h-40 rounded-md"
   />
   <p class="w-2/6 text-md p-2">{{ product.title }}</p>
-  <div class="flex products-center gap-2 bg-amber-300 rounded-lg p-1.5">
-    <button
-      (click)="decrementCount(product.id)"
-      class="text-[0.7em] hover:bg-amber-400 p-1 rounded"
-    >
-      <i class="pi pi-minus"></i>
-    </button>
+  <div
+    class="flex justify-center items-center gap-2 bg-gray-200 rounded-lg p-1.5 w-fit h-fit"
+  >
+    <p-button
+      icon="pi pi-minus"
+      (onClick)="decrementCount(product.id!)"
+      [text]="true"
+      [rounded]="true"
+    />
 
-    <span class="text-[0.7em] font-medium">
+    <span class="text-xl font-medium w-12 text-center">
       {{ itemCount }}
     </span>
 
-    <button
-      (click)="incrementCount(product.id)"
-      class="text-[0.7em] hover:bg-amber-400 p-1 rounded"
-    >
-      <i class="pi pi-plus"></i>
-    </button>
-
-    <button
-      (click)="removeFromCart(product.id)"
-      class="text-[0.7em] hover:bg-red-400 p-1 rounded ml-1"
-    >
-      <i class="pi pi-trash"></i>
-    </button>
+    <p-button
+      icon="pi pi-plus"
+      (onClick)="incrementCount(product.id!)"
+      [text]="true"
+      [rounded]="true"
+    />
+    <p-button
+      icon="pi pi-trash"
+      (onClick)="removeFromCart(product.id)"
+      [text]="true"
+      [rounded]="true"
+    />
   </div>
   <p></p>
 </div>
