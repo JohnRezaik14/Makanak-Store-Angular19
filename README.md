@@ -1,59 +1,103 @@
-# Makanak
+# Makanak E-Commerce Platform
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.7.
+A modern e-commerce platform built with Angular that provides a seamless shopping experience.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- **User Authentication**
 
-```bash
-ng serve
+  - Email/Password login
+  - User registration with profile details
+  - Protected routes for authenticated users
+
+- **Product Management**
+
+  - Product listing with search functionality
+  - Detailed product pages
+  - Product categorization
+  - Price and discount display
+
+- **Shopping Cart**
+
+  - Add/Remove products
+  - Adjust quantities
+  - Persistent cart storage
+  - Real-time total calculation
+
+- **Order Management**
+
+  - Order creation and tracking
+  - Order history
+  - Multiple payment methods
+  - Order status monitoring
+
+- **User Profile**
+  - Personal information management
+  - Order history viewing
+  - Shipping address management
+  - Account settings
+
+## Technical Features
+
+- Angular 16+ with Standalone Components
+- PrimeNG UI Components
+- Tailwind CSS for styling
+- Signal-based State Management
+- Responsive Design
+- Form Validation
+- Route Protection with Guards
+
+## Getting Started
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/makanak-front.git
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   ng serve
+   ```
+
+4. Start the mock backend:
+
+   ```bash
+   json-server --watch db.json
+   ```
+
+## Development Stack
+
+- Angular 16+
+- PrimeNG
+- Tailwind CSS
+- JSON Server (Mock Backend)
+- TypeScript
+- RxJS
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── core/               # Core modules, services, guards
+│   ├── features/          # Feature modules (products, cart, etc.)
+│   └── shared/            # Shared components, utilities
+├── assets/
+└── styles/
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Contributing
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
