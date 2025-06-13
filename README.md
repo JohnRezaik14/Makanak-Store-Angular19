@@ -2,6 +2,14 @@
 
 A modern e-commerce platform built with Angular that provides a seamless shopping experience.
 
+## Demo
+
+Watch a video demonstration of Makanak E-commerce Platform:
+
+🎥 [Watch Demo Video](https://drive.google.com/file/d/YOUR_VIDEO_ID/view)
+
+[![Makanak Demo](https://drive.google.com/uc?export=view&id=YOUR_THUMBNAIL_ID)](https://drive.google.com/file/d/YOUR_VIDEO_ID/view)
+
 ## Features
 
 - **User Authentication**
