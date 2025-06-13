@@ -35,7 +35,6 @@ A modern e-commerce platform built with Angular that provides a seamless shoppin
   - Personal information management
   - Order history viewing
   - Shipping address management
-  - Account settings
 
 ## Technical Features
 
@@ -75,7 +74,7 @@ A modern e-commerce platform built with Angular that provides a seamless shoppin
 
 ## Development Stack
 
-- Angular 16+
+- Angular 19
 - PrimeNG
 - Tailwind CSS
 - JSON Server (Mock Backend)
@@ -91,7 +90,6 @@ src/
 │   ├── features/          # Feature modules (products, cart, etc.)
 │   └── shared/            # Shared components, utilities
 ├── assets/
-└── styles/
 ```
 
 ## Contributing
