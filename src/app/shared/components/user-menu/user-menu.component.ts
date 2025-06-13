@@ -4,18 +4,19 @@ import { MegaMenu } from 'primeng/megamenu';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { UserService } from '../../../core/services/user/user.service';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user-menu',
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.css'],
   standalone: true,
-  imports: [MegaMenu, CommonModule],
+  imports: [MegaMenu, CommonModule, RouterModule],
 })
 export class UserMenuComponent {
   public userService = inject(UserService);
   private authService = inject(AuthService);
-
+  private router = inject(Router);
   constructor() {
     // console.log(this.userService.userData);
   }
@@ -33,17 +34,18 @@ export class UserMenuComponent {
             {
               label: 'Your Orders',
               items: [
-                {
-                  label: 'Last Order',
-                  command: () => this.navigateToOrders('last'),
-                },
+                // {
+                //   label: 'Last Order',
+                //   command: () => this.navigateToOrders('last'),
+                // },
                 {
                   label: 'All Orders',
                   command: () => this.navigateToOrders('all'),
                 },
                 {
-                  label: 'Upcoming Orders',
-                  command: () => this.navigateToOrders('upcoming'),
+                  label: 'Pending Orders',
+                  icon: 'pi pi-hourglass',
+                  command: () => this.navigateToOrders('pending'),
                 },
               ],
             },
@@ -70,16 +72,26 @@ export class UserMenuComponent {
     ] as MegaMenuItem[];
   });
 
-  private navigateToOrders(type: string) {
-    // Implement navigation logic
+  navigateToOrders(type: string = 'all') {
+    this.router.navigate(['/profile'], {
+      queryParams: {
+        tab: 'orders',
+        filter: type,
+      },
+    });
   }
 
-  private navigateToProfile() {
-    // Implement navigation logic
+  navigateToCart() {
+    this.router.navigate(['/cart']);
+  }
+  navigateToProfile() {
+    this.router.navigate(['/profile'], {
+      queryParams: { tab: 'info' },
+    });
   }
 
   private logout() {
     this.authService.logout();
-    // this.userService.clearUserData();
+    this.userService.setUserData(null);
   }
 }

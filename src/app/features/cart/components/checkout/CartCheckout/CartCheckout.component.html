@@ -1,3 +1,64 @@
-<p>
-  CartCheckout works!
-</p>
+<p-card>
+  <form
+    [formGroup]="checkoutForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col gap-4"
+  >
+    <h2 class="text-xl font-bold mb-4">Checkout</h2>
+
+    <!-- Shipping Address -->
+    <div class="flex flex-col gap-2">
+      <label for="shippingAddress" class="font-medium">Shipping Address</label>
+      <textarea
+        pInputTextarea
+        id="shippingAddress"
+        formControlName="shippingAddress"
+        [rows]="3"
+        placeholder="Enter your full shipping address"
+        class="w-full p-2"
+      ></textarea>
+      @if (checkoutForm.get('shippingAddress')?.invalid &&
+      checkoutForm.get('shippingAddress')?.touched) {
+      <small class="text-red-500">
+        Please enter a valid shipping address (minimum 10 characters)
+      </small>
+      }
+    </div>
+
+    <!-- Payment Method -->
+    <div class="flex flex-col gap-2">
+      <label class="font-medium">Payment Method</label>
+      <div class="flex gap-4">
+        @for (method of paymentMethods; track method.value) {
+        <div class="flex items-center gap-2">
+          <p-radioButton
+            [value]="method.value"
+            formControlName="paymentMethod"
+          ></p-radioButton>
+          <label [for]="method.value">{{ method.label }}</label>
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="border-t pt-4 mt-4">
+      <div class="flex justify-between items-center">
+        <span class="font-medium">Total Amount:</span>
+        <span class="text-xl font-bold">${{ total }}</span>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="flex justify-end mt-4">
+      <p-button
+        type="submit"
+        label="Place Order"
+        [loading]="loading"
+        [disabled]="checkoutForm.invalid || loading"
+      ></p-button>
+    </div>
+  </form>
+</p-card>
+
+<p-toast></p-toast>

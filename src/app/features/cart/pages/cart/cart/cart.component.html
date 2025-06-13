@@ -1,19 +1,23 @@
-<section class="p-8">
-  <!-- products in  Cart -->
-  <div class="flex">
-    <h2 class="text-gray-100 text-2xl p-2">Cart</h2>
-  </div>
+<section class="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
   <!-- Order summary -->
   <div
-    class="flex flex-col w-10/12 gap-4 p-4 rounded-2xl bg-gray-950 shadow-md shadow-teal-600"
+    class="md:col-span-2 gap-2 p-4 rounded-2xl bg-gray-950 shadow-md shadow-teal-600"
   >
-    @if (itemsCount()>0) {@for (item of cartItems(); track item){
-    <app-CartItem [product]="item"></app-CartItem>
+    <!-- products in  Cart -->
+
+    <h2 class="text-gray-100 text-2xl p-2">Cart</h2>
+
+    @if (itemsCount()>0) {
+    <div class="flex flex-col gap-8 bg-gray-950">
+      @for (item of cartItems(); track item){
+      <app-CartItem [product]="item"></app-CartItem>
+      }
+    </div>
     <!-- @if
     (this.cartService.checkIfInCart(item.id!)) {
 
     }  -->
-    } }@else {
+    }@else {
     <div class="text-gray-100 flex flex-col gap-4">
       <p>There is no product added to the cart</p>
       <p>
@@ -26,6 +30,11 @@
       </p>
     </div>
 
+    }
+  </div>
+  <div class="md:col-span-1">
+    @if (cartItems().length) {
+    <app-cart-checkout />
     }
   </div>
 </section>

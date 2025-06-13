@@ -2,11 +2,17 @@
   <img
     src="{{ product.image }}"
     alt="{{ product.title }}"
-    class="w-40 h-40 rounded-md"
+    class="w-40 h-40 rounded-md cursor-pointer"
+    [routerLink]="['/products', product.id]"
   />
-  <p class="w-2/6 text-md p-2">{{ product.title }}</p>
+  <p
+    class="w-2/6 text-md p-2 cursor-pointer"
+    [routerLink]="['/products', product.id]"
+  >
+    {{ product.title }}
+  </p>
   <div
-    class="flex justify-center items-center gap-2 bg-gray-200 rounded-lg p-1.5 w-fit h-fit"
+    class="flex justify-center items-center gap- bg-gray-200 rounded-lg p-1.5 w-32 h-fit"
   >
     <p-button
       icon="pi pi-minus"
@@ -32,5 +38,5 @@
       [rounded]="true"
     />
   </div>
-  <p></p>
+  <p class="text-md"><sup>EGP</sup>{{ product.price }}</p>
 </div>

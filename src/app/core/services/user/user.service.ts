@@ -21,7 +21,7 @@ export class UserService {
     return this.userDataSignal();
   }
 
-  setUserData(user: User) {
+  setUserData(user: User | null) {
     this.userDataSignal.set(user);
     localStorage.setItem('userData', JSON.stringify(user));
   }

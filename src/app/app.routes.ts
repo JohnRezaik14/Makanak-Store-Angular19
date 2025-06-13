@@ -1,29 +1,27 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './features/home/pages/home/home.component';
-import { AboutComponent } from './features/about/pages/about/about.component';
-import { CartComponent } from './features/cart/pages/cart/cart/cart.component';
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    loadComponent: () =>
+      import('./features/home/pages/home/home.component').then(
+        (m) => m.HomeComponent
+      ),
   },
   {
     path: 'about',
-    component: AboutComponent,
-  },
-  {
-    path: 'cart',
-    component: CartComponent,
+    loadComponent: () =>
+      import('./features/about/pages/about/about.component').then(
+        (m) => m.AboutComponent
+      ),
   },
   {
     path: 'products',
     loadComponent: () =>
-      import(
-        './features/products/components/products-section/products-section.component'
-      ).then((m) => m.ProductsSectionComponent),
-    canActivate: [authGuard],
+      import('./features/home/pages/home/home.component').then(
+        (m) => m.HomeComponent
+      ),
   },
   {
     path: 'products/:id',
@@ -31,5 +29,33 @@ export const routes: Routes = [
       import('./features/products/pages/product/Product.component').then(
         (m) => m.ProductComponent
       ),
+  },
+  {
+    path: 'cart',
+    loadComponent: () =>
+      import('./features/cart/pages/cart/cart/cart.component').then(
+        (m) => m.CartComponent
+      ),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('./features/profile/profile.component').then(
+        (m) => m.ProfileComponent
+      ),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'orders',
+    loadComponent: () =>
+      import('./features/profile/profile.component').then(
+        (m) => m.ProfileComponent
+      ),
+    canActivate: [authGuard],
+  },
+  {
+    path: '**',
+    redirectTo: '',
   },
 ];

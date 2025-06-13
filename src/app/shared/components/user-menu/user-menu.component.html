@@ -1,3 +1,7 @@
 @if (userService.userData) {
-<p-megaMenu [model]="items()" [orientation]="'vertical'"> </p-megaMenu>
+<div class="card">
+  <p-megaMenu [model]="items()" styleClass="custom-mega-menu" class="z-50">
+  </p-megaMenu>
+</div>
+<!-- [orientation]="'vertical'" -->
 }

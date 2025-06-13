@@ -1,0 +1,163 @@
+<div class="container mx-auto px-4 py-8">
+  <p-tabView [(activeIndex)]="activeTab">
+    <!-- Profile Information -->
+    <p-tabPanel header="Profile Information">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <p-card>
+          <div class="flex flex-col gap-4">
+            <div class="flex justify-between items-center">
+              <h2 class="text-2xl font-bold">Personal Information</h2>
+              <p-button
+                icon="pi pi-pencil"
+                label="Edit"
+                [text]="true"
+              ></p-button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="flex flex-col">
+                <label class="text-gray-600">Username</label>
+                <span class="font-medium">{{ user?.username }}</span>
+              </div>
+
+              <div class="flex flex-col">
+                <label class="text-gray-600">Email</label>
+                <span class="font-medium">{{ user?.email }}</span>
+              </div>
+
+              <div class="flex flex-col">
+                <label class="text-gray-600">Gender</label>
+                <span class="font-medium capitalize">{{ user?.gender }}</span>
+              </div>
+            </div>
+          </div>
+        </p-card>
+      </div>
+    </p-tabPanel>
+
+    <!-- Orders -->
+    <p-tabPanel header="Orders">
+      <div class="mb-4">
+        <p-selectButton
+          [options]="orderStatusOptions"
+          [(ngModel)]="selectedStatus"
+          optionLabel="label"
+          optionValue="value"
+        ></p-selectButton>
+      </div>
+
+      <p-table
+        [value]="filteredOrders"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        styleClass="p-datatable-sm"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Order ID</th>
+            <th>Date</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-order>
+          <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.date | date }}</td>
+            <td><sup>EGP</sup>{{ order.totalCount }}</td>
+            <td>
+              <p-tag
+                [value]="order.status"
+                [severity]="getStatusSeverity(order.status)"
+              ></p-tag>
+            </td>
+            <td>
+              <p-button
+                icon="pi pi-times"
+                [text]="true"
+                severity="danger"
+                [disabled]="!isCancellable(order.status)"
+                (onClick)="cancelOrder(order.id)"
+                tooltip="Cancel Order"
+              ></p-button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="5" class="text-center p-4">No orders found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+  </p-tabView>
+
+  <!-- Checkout Section -->
+  <p-card>
+    <form
+      [formGroup]="checkoutForm"
+      (ngSubmit)="onSubmit()"
+      class="flex flex-col gap-4"
+    >
+      <h2 class="text-xl font-bold mb-4">Checkout</h2>
+
+      <!-- Shipping Address -->
+      <div class="flex flex-col gap-2">
+        <label for="shippingAddress" class="font-medium"
+          >Shipping Address</label
+        >
+        <textarea
+          pInputTextarea
+          id="shippingAddress"
+          formControlName="shippingAddress"
+          [rows]="3"
+          placeholder="Enter your full shipping address"
+          class="w-full"
+        ></textarea>
+        @if (checkoutForm.get('shippingAddress')?.invalid &&
+        checkoutForm.get('shippingAddress')?.touched) {
+        <small class="text-red-500">
+          Please enter a valid shipping address (minimum 10 characters)
+        </small>
+        }
+      </div>
+
+      <!-- Payment Method -->
+      <div class="flex flex-col gap-2">
+        <label class="font-medium">Payment Method</label>
+        <div class="flex gap-4">
+          @for (method of paymentMethods; track method.value) {
+          <div class="flex items-center gap-2">
+            <p-radioButton
+              [value]="method.value"
+              [inputId]="method.value"
+              formControlName="paymentMethod"
+            ></p-radioButton>
+            <label [for]="method.value">{{ method.label }}</label>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="border-t pt-4 mt-4">
+        <div class="flex justify-between items-center">
+          <span class="font-medium">Total Amount:</span>
+          <span class="text-xl font-bold">${{ total }}</span>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex justify-end mt-4">
+        <p-button
+          type="submit"
+          label="Place Order"
+          [loading]="loading"
+          [disabled]="checkoutForm.invalid || loading"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
+
+  <p-toast></p-toast>
+</div>

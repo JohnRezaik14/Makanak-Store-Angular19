@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { Inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { LoginCredentials } from '../../models/auth.model';
+import { UserService } from '../user/user.service';
+import { User } from '../../models/User';
 
 interface RegisterRequest {
   email: string;
@@ -20,7 +22,11 @@ export class AuthService {
   private readonly TOKEN_KEY = 'auth_token';
   private isAuthenticated = signal<boolean>(false);
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private userService: UserService
+  ) {
     this.checkAuthStatus();
   }
 
@@ -48,7 +54,6 @@ export class AuthService {
           this.setUser(response.user);
           this.setToken(response.accessToken);
           this.isAuthenticated.set(true);
-
           this.router.navigate(['/']);
         })
       );
@@ -58,13 +63,14 @@ export class AuthService {
     credentials: LoginCredentials
   ): Observable<{ accessToken: string }> {
     return this.http
-      .post<{ accessToken: string; user: {} }>(
-        `${this.API_URL}/sigin`,
+      .post<{ accessToken: string; user: User }>(
+        `${this.API_URL}/signin`,
         credentials
       )
       .pipe(
         tap((response) => {
           this.setUser(response.user);
+          this.userService.setUserData(response.user);
           this.setToken(response.accessToken);
           this.isAuthenticated.set(true);
           this.router.navigate(['/']);
@@ -75,6 +81,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem('userData');
+    localStorage.removeItem('shopping_cart');
     this.isAuthenticated.set(false);
     this.router.navigate(['/']);
   }
@@ -86,8 +93,14 @@ export class AuthService {
   private setToken(accessToken: string) {
     localStorage.setItem(this.TOKEN_KEY, accessToken);
   }
-  private setUser(user: {}) {
+  private setUser(user: any) {
     localStorage.setItem('userData', JSON.stringify(user));
+    // this.userService.setUserData({
+    //   email: user.email,
+    //   gender: user.gender,
+    //   id: user.id,
+    //   username: user.username,
+    // });
   }
 
   private checkAuthStatus() {
