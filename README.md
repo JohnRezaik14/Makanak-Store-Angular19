@@ -36,13 +36,12 @@ Watch a video demonstration of Makanak E-commerce Platform:
 
   - Order creation and tracking
   - Order history
-  - Multiple payment methods
   - Order status monitoring
 
 - **User Profile**
-  - Personal information management
+  - Personal information 
   - Order history viewing
-  - Shipping address management
+  - Shipping address 
 
 ## Technical Features
 
